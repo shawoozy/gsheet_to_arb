@@ -8,24 +8,19 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:gsheet_to_arb/src/utils/log.dart';
-import 'package:intl_translation/extract_messages.dart';
-import 'package:intl_translation/generate_localized.dart';
-import 'package:intl_translation/src/icu_parser.dart';
-import 'package:intl_translation/src/intl_message.dart';
+import 'package:intl_generator/extract_messages.dart';
+import 'package:intl_generator/generate_localized.dart';
 import 'package:path/path.dart' as path;
 
 class IntlTranslationGenerator {
-  void generateLookupTables(
-      String outputDirectoryPath, String localizationFileName) {
+  void generateLookupTables(String outputDirectoryPath, String localizationFileName) {
     var extraction = MessageExtraction();
     var generation = MessageGeneration();
 
     // generation.codegenMode = 'release';
     generation.generatedFilePrefix = '_';
 
-    var dartFiles = [
-      '$outputDirectoryPath/${localizationFileName.toLowerCase()}.dart'
-    ];
+    var dartFiles = ['$outputDirectoryPath/${localizationFileName.toLowerCase()}.dart'];
 
     var jsonFiles = Directory(outputDirectoryPath)
         .listSync()
@@ -39,16 +34,15 @@ class IntlTranslationGenerator {
 
     messages = {};
     for (var eachMap in allMessages) {
-      eachMap.forEach(
-          (key, value) => messages.putIfAbsent(key, () => []).add(value));
+      eachMap.forEach((key, value) => messages.putIfAbsent(key, () => []).add(value));
     }
     for (var arg in jsonFiles) {
       var file = File(arg);
       generateLocaleFile(file, targetDir, generation);
     }
 
-    var mainImportFile = File(path.join(
-        targetDir, '${generation.generatedFilePrefix}messages_all.dart'));
+    var mainImportFile =
+        File(path.join(targetDir, '${generation.generatedFilePrefix}messages_all.dart'));
     mainImportFile.writeAsStringSync(generation.generateMainImportFile());
   }
 
@@ -67,8 +61,7 @@ class IntlTranslationGenerator {
   /// excluding only the special _locale attribute that we use to indicate the
   /// locale. If that attribute is missing, we try to get the locale from the last
   /// section of the file name.
-  void generateLocaleFile(
-      File file, String targetDir, MessageGeneration generation) {
+  void generateLocaleFile(File file, String targetDir, MessageGeneration generation) {
     var src = file.readAsStringSync();
     var data = jsonDecoder.decode(src);
     var locale = data['@@locale'] ?? data['_locale'];
@@ -115,8 +108,7 @@ class IntlTranslationGenerator {
 class BasicTranslatedMessage extends TranslatedMessage {
   Map<String, List<MainMessage>> messages;
 
-  BasicTranslatedMessage(String name, translated, this.messages)
-      : super(name, translated);
+  BasicTranslatedMessage(String name, translated, this.messages) : super(name, translated);
 
   @override
   List<MainMessage> get originalMessages => super.originalMessages;
