@@ -81,8 +81,7 @@ class ArbResource {
     }
   }
 
-  Map<String, Object> _formatPlaceholders(
-      List<ArbResourcePlaceholder> placeholders) {
+  Map<String, Object> _formatPlaceholders(List<ArbResourcePlaceholder> placeholders) {
     final map = <String, Object>{};
 
     placeholders.forEach((placeholder) {
@@ -95,7 +94,7 @@ class ArbResource {
 }
 
 class ArbResourcePlaceholder {
-  static String typeText = 'text';
+  static String typeText = 'String';
   static String typeNum = 'num';
 
   final String name;

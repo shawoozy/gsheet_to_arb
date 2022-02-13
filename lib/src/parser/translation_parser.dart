@@ -46,10 +46,8 @@ class TranslationParser {
         }
 
         if (itemValue == '') {
-          Log.i('WARNING: empty string in lang: ' +
-              document.languages[index] +
-              ', key: ' +
-              item.key);
+          Log.i(
+              'WARNING: empty string in lang: ' + document.languages[index] + ', key: ' + item.key);
           continue;
         }
 
@@ -60,11 +58,8 @@ class TranslationParser {
         // plural consume
         final pluralParser = pluralParsers[index];
 
-        final pluralStatus = pluralParser.consume(ArbResource(
-            item.key, itemValue,
-            placeholders: itemPlaceholders,
-            context: item.category,
-            description: item.description));
+        final pluralStatus = pluralParser.consume(ArbResource(item.key, itemValue,
+            placeholders: itemPlaceholders, context: item.category, description: item.description));
 
         if (pluralStatus is Consumed) {
           continue;
@@ -82,11 +77,8 @@ class TranslationParser {
         // gender consume
         final genderParser = genderParsers[index];
 
-        final genderStatus = genderParser.consume(ArbResource(
-            item.key, itemValue,
-            placeholders: itemPlaceholders,
-            context: item.category,
-            description: item.description));
+        final genderStatus = genderParser.consume(ArbResource(item.key, itemValue,
+            placeholders: itemPlaceholders, context: item.category, description: item.description));
 
         if (genderStatus is Consumed) {
           continue;
@@ -109,9 +101,7 @@ class TranslationParser {
 
         // add resource
         builder.add(ArbResource(key, itemValue,
-            context: item.category,
-            description: item.description,
-            placeholders: itemPlaceholders));
+            context: item.category, description: item.description, placeholders: itemPlaceholders));
       }
     }
 
@@ -161,7 +151,7 @@ class TranslationParser {
           throw Exception('Placeholder $placeholderName already declared');
         }
         placeholders[placeholderName] =
-            (ArbResourcePlaceholder(name: placeholderName, type: 'text'));
+            (ArbResourcePlaceholder(name: placeholderName, type: 'String'));
       }
     });
     return placeholders.values.toList();
