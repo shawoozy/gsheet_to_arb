@@ -15,7 +15,8 @@ dependencies:
   intl: ">=0.17.0 <0.18.0"
   intl_generator:
     #git: git://github.com/kiwi-bop/intl_generator
-    url: https://github.com/kiwi-bop/intl_generator
+    git:
+      url: https://github.com/kiwi-bop/intl_generator
       # ref: feature/migrationNullSafety
   path: ">=1.8.0 <2.0.0"
   googleapis_auth: ^1.1.0
