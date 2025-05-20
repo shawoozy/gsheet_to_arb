@@ -13,7 +13,7 @@ dependencies:
   args: ">=2.3.1"
   intl: ">=0.17.0 <0.21.0"
   intl_generator:
-    git: https://github.com/anycode/intl_generator
+    git: https://github.com/shawoozy/intl_generator
       # url: https://github.com/kiwi-bop/intl_generator.git
       # ref: feature/migrationNullSafety
   path: ">=1.8.1"
